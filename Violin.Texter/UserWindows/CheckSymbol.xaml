@@ -1,0 +1,46 @@
+﻿<Controls:MetroWindow x:Class="Violin.Texter.UserWindows.CheckSymbol"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:Violin.Texter.UserWindows"
+        mc:Ignorable="d"
+        Title="CheckSymbol" 
+		Height="151.714" 
+		Width="288" 
+		ShowMaxRestoreButton="False"
+		ShowMinButton="False"
+		WindowStyle="ToolWindow" 
+		ResizeMode="NoResize" 
+		ShowInTaskbar="False" BorderThickness="1,0,1,1"
+		Closing="MetroWindow_Closing" BorderBrush="#FF41B1E1" GlowBrush="#FF41B1E1" NonActiveBorderBrush="#FFA0522D" NonActiveWindowTitleBrush="#FFA0522D" NonActiveGlowBrush="#FFA0522D">
+	<Grid Margin="10">
+		<Grid Height="20" VerticalAlignment="Top">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="10*"/>
+				<ColumnDefinition Width="19*"/>
+				<ColumnDefinition Width="10*"/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Grid.Column="0">符号</TextBlock>
+			<TextBlock Grid.Column="1">ASCII</TextBlock>
+			<TextBlock Grid.Column="2">数量</TextBlock>
+		</Grid>
+		<ListBox Name="_symbolBox" Margin="0, 20, 0, 0">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="10*"/>
+							<ColumnDefinition Width="20*"/>
+							<ColumnDefinition Width="10*"/>
+						</Grid.ColumnDefinitions>
+						<TextBlock Text="{Binding Path=Symbol}" Grid.Column="0" ></TextBlock>
+						<TextBlock Text="{Binding Path=IntSymbol}" Grid.Column="1"></TextBlock>
+						<TextBlock Text="{Binding Path=Count}" Grid.Column="2"></TextBlock>
+					</Grid>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
+</Controls:MetroWindow>

@@ -1,0 +1,27 @@
+﻿<Controls:MetroWindow x:Class="Violin.Texter.UserWindows.UnhandledException"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:Violin.Texter.UserWindows"
+        mc:Ignorable="d"
+        Title="UnhandledException" Height="355" Width="515" ShowInTaskbar="False"
+		WindowStyle="ToolWindow" ShowMinButton="False" ShowMaxRestoreButton="False" BorderThickness="1,0,1,1" GlowBrush="#FF41B1E1" SizeToContent="WidthAndHeight">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="25*"/>
+			<RowDefinition Height="50"/>
+		</Grid.RowDefinitions>
+		<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+			<TextBlock Name="_dialogMessage" Margin="10" Grid.Row="0"></TextBlock>
+		</ScrollViewer>
+
+		<Button Width="130" Margin="0,0,10,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1"  Name="_dialogClose" Click="_dialogClose_Click">
+			<Button.Resources>
+				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+			</Button.Resources>
+			<Button.Content>确定</Button.Content>
+		</Button>
+	</Grid>
+</Controls:MetroWindow>
