@@ -9,17 +9,7 @@ using Newtonsoft.Json;
 
 namespace Violin.Texter.Classes
 {
-	public interface ITranslactionItem : IKeyValueItem<string, Translation>
-	{
-	}
-
-	public interface IKeyValueItem<TKey, TValue>
-	{
-		TKey Key { get; set; }
-		TValue Value { get; set; }
-	}
-
-	public class TranslationItem : ITranslactionItem, INotifyPropertyChanged
+	public class TranslationItem : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -102,11 +92,5 @@ namespace Violin.Texter.Classes
 		{
 			return $"{Key}:{Value.Level} \"{Value.Text.Replace("\"", "\\\"")}\"";
 		}
-	}
-
-	public class TranslationItem<TKey, TValue> : IKeyValueItem<TKey, TValue>
-	{
-		public TKey Key { get; set; }
-		public TValue Value { get; set; }
 	}
 }

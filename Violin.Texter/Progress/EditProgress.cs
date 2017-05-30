@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Violin.Texter.Progress;
 
 namespace Violin.Texter.Classes
 {
@@ -28,10 +29,16 @@ namespace Violin.Texter.Classes
 		/// </summary>
 		public string OriginName { get; set; }
 
-		/// <summary>
-		/// 进度所在的位置
-		/// </summary>
-		[JsonIgnore]
+        /// <summary>
+        /// 表示当前进度的状态
+        /// </summary>
+        [JsonIgnore]
+        public ProgressState State { get; set; }
+
+        /// <summary>
+        /// 进度所在的物理位置
+        /// </summary>
+        [JsonIgnore]
 		public string OpenPath { get; set; }
 	}
 }

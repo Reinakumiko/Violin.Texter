@@ -7,7 +7,7 @@
 		xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
 		xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="500" MinWidth="800" Height="500" Width="800" BorderBrush="#FF41B1E1" BorderThickness="1,0,1,1" WindowStartupLocation="CenterScreen">
+        Title="wawwawa" MinHeight="500" MinWidth="800" Height="500" Width="800" BorderBrush="#FF41B1E1" BorderThickness="1,0,1,1" WindowStartupLocation="CenterScreen">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -15,8 +15,11 @@
 		</Grid.RowDefinitions>
 		<Menu Grid.Row="0">
 			<MenuItem Header="文件">
-				<MenuItem Header="导入文本" Name="Open" Click="Open_Click"></MenuItem>
+				<MenuItem Header="新建进度" Name="CreateProgress" Click="CreateProgress_Click"></MenuItem>
 				<MenuItem Header="打开进度" Name="OpenProgress" Click="OpenProgress_Click"></MenuItem>
+				<Separator />
+				<MenuItem Header="导入文本" Name="ImportOrigin" Click="ImportOrigin_Click"></MenuItem>
+				<MenuItem Header="导入译文" Name="ImportTranslate" Click="ImportTranslate_Click"></MenuItem>
 				<Separator />
 				<MenuItem Header="保存进度" Name="Save" Click="Save_Click"></MenuItem>
 				<MenuItem Header="进度另存为" Name="SaveAs" Click="SaveAs_Click"></MenuItem>
@@ -61,7 +64,7 @@
 				<ColumnDefinition Width="100*"/>
 				<ColumnDefinition Width="200*"/>
 			</Grid.ColumnDefinitions>
-			<ListBox Margin="10" Name="keyList" Grid.Row="1" ScrollViewer.CanContentScroll="True" SelectionChanged="keyList_SelectionChanged" >
+			<ListBox Margin="10" Name="keyList" ScrollViewer.CanContentScroll="True" SelectionChanged="keyList_SelectionChanged" >
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<WrapPanel>

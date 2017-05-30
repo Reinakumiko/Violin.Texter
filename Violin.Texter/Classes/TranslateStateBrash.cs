@@ -19,6 +19,12 @@ namespace Violin.Texter.Classes
 
 			switch (State)
 			{
+                case TranslateState.New:
+                case TranslateState.OriginUpdated:
+                case TranslateState.TranslateUpdated:
+                    BrushName = "Red";
+                    brushString = "#FFE51400";
+                    break;
 				case TranslateState.Empty:
 					BrushName = "Grey";
 					brushString = "#FFCFCFCF";

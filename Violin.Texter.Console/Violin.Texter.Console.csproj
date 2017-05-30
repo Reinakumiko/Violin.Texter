@@ -53,12 +53,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GitHub\YamlDotNet\YamlDotNet.Framework\YamlDotNet.Framework.csproj">
-      <Project>{2db9eed3-2048-44cd-bfcd-fb86e0b8fbcb}</Project>
-      <Name>YamlDotNet.Framework</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -89,12 +89,15 @@
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Logger\LogInfo.cs" />
     <Compile Include="Logger\SystemRunningInfo.cs" />
+    <Compile Include="Progress\ProgressState.cs" />
     <Compile Include="UserWindows\CheckSymbol.xaml.cs">
       <DependentUpon>CheckSymbol.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\EditProgress.cs" />
+    <Compile Include="Progress\EditProgress.cs" />
     <Compile Include="Classes\TranslationItem.cs" />
     <Compile Include="Classes\Translation.cs" />
+    <Compile Include="UserWindows\MainWindow_NativeMethod.cs" />
+    <Compile Include="UserWindows\MainWindow_SampleBinding.cs" />
     <Compile Include="UserWindows\UnhandledException.xaml.cs">
       <DependentUpon>UnhandledException.xaml</DependentUpon>
     </Compile>
@@ -148,10 +151,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GitHub\YamlDotNet\YamlDotNet.Framework\YamlDotNet.Framework.csproj">
-      <Project>{2DB9EED3-2048-44CD-BFCD-FB86E0B8FBCB}</Project>
-      <Name>YamlDotNet.Framework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Violin.Texter.Component\Violin.Texter.Component.csproj">
       <Project>{c0e91094-4b7b-405c-b434-503b00835056}</Project>
       <Name>Violin.Texter.Component</Name>
