@@ -27,6 +27,7 @@ namespace Violin.Texter.Logger
 			{
 				var encoded = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(logInfo));
 				gzip.Write(encoded, 0, encoded.Length);
+				gzip.WriteByte(Convert.ToByte(','));
 			}
 		}
 

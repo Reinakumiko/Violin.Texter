@@ -50,12 +50,19 @@ namespace Violin.Texter
 			});
 		}
 
+		/// <summary>
+		/// 重置编辑区
+		/// </summary>
 		private void EditorReset()
 		{
 			_transOrigin.Clear();
 			_transTranslated.Clear();
 		}
 
+		/// <summary>
+		/// 检查文件是否已创建
+		/// </summary>
+		/// <param name="fileInfo"></param>
 		private void CheckExists(FileInfo fileInfo)
 		{
 			if (!fileInfo.Directory.Exists)
@@ -65,6 +72,10 @@ namespace Violin.Texter
 				fileInfo.Create().Dispose();
 		}
 
+		/// <summary>
+		/// 保存进度
+		/// </summary>
+		/// <returns>是否成功写入硬盘</returns>
 		private bool ProgressSave()
 		{
 			IsProgressChanged = false;
@@ -75,6 +86,10 @@ namespace Violin.Texter
 						 : SaveProgress(EditProgress.OpenPath);
 		}
 
+		/// <summary>
+		/// 进度另存为
+		/// </summary>
+		/// <returns></returns>
 		private bool ProgressSaveAs()
 		{
 			IsProgressChanged = false;

@@ -37,7 +37,15 @@ namespace Violin.Texter
 	{
 		private readonly string _mainTitle = "Wawwawa";
 
+		/// <summary>
+		/// 当进度发生变动时执行的委托
+		/// </summary>
+		/// <param name="edirProgress">发生变动的进度</param>
 		public delegate void OnEditProgressChanged(EditProgress edirProgress);
+
+		/// <summary>
+		/// 当进度发生更改时触发的事件
+		/// </summary>
 		public event OnEditProgressChanged OnEditProgressChangedEventHandle;
 		
 		/// <summary>
@@ -56,6 +64,12 @@ namespace Violin.Texter
 			}
 		}
 
+
+		/// <summary>
+		/// 当前被选中的翻译文本
+		/// </summary>
+		public TranslationItem CurrentItem { get; set; }
+
 		/// <summary>
 		/// 当前激活进度的私有成员
 		/// </summary>
@@ -71,19 +85,6 @@ namespace Violin.Texter
 			{
 				_editProgress = value;
 				OnEditProgressChangedEventHandle?.Invoke(_editProgress);
-				return;
-
-
-				//重新绑定列表
-				SetListItems(EditProgress?.Translations);
-
-				//重置编辑框
-				EditorReset();
-
-				if (value == null)
-					Title = $"{_mainTitle}(未打开进度)";
-				else
-					Title = _mainTitle;
 			}
 		}
 
@@ -125,9 +126,17 @@ namespace Violin.Texter
 					DisplayUnhandleExceptionDialog(exception);
 				}
 			};
+
+			OnEditProgressChangedEventHandle += editprogress =>
+			{
+				//重新绑定列表
+				SetListItems(EditProgress?.Translations);
+
+				//重置编辑框
+				EditorReset();
+			};
 		}
 
-		public TranslationItem CurrentItem { get; set; }
 		private void keyList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			CurrentItem = keyList.SelectedItem as TranslationItem;
@@ -155,6 +164,11 @@ namespace Violin.Texter
 			IsProgressChanged = true;
 		}
 
+		/// <summary>
+		/// 创建新进度
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private async void CreateProgress_Click(object sender, RoutedEventArgs e)
 		{
 			if (EditProgress != null)
@@ -166,6 +180,11 @@ namespace Violin.Texter
 			};
 		}
 
+		/// <summary>
+		/// 打开进度
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private async void OpenProgress_Click(object sender, RoutedEventArgs e)
 		{
 			if (EditProgress != null)
