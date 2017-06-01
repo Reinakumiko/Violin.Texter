@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Violin.Texter.StreamWorker.WriteWorker
 {
-	public static class GZipWorker
+	public static class GZipWrite
 	{
 
 	}

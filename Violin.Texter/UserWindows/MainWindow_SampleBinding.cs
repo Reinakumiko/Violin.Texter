@@ -19,15 +19,15 @@ namespace Violin.Texter
 	/// </summary>
 	public partial class MainWindow
 	{
-		private void ImportOrigin_Click(object sender, RoutedEventArgs e)
+		private async void ImportOrigin_Click(object sender, RoutedEventArgs e)
 		{
-			ImportPath(false);
+			await ImportPath(false);
 			UpdateEditList();
 		}
 
-		private void ImportTranslate_Click(object sender, RoutedEventArgs e)
+		private async void ImportTranslate_Click(object sender, RoutedEventArgs e)
 		{
-			ImportPath(true);
+			await ImportPath(true);
 			UpdateEditList();
 		}
 

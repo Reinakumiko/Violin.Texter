@@ -305,7 +305,7 @@ namespace Violin.Texter
 			}
 		}
 
-		private async void ImportPath(bool isTranslate)
+		private async Task ImportPath(bool isTranslate)
 		{
 			var dialogController = await this.ShowProgressAsync("正在导入", "正在将文本导入到当前进度中...");
 			dialogController.SetIndeterminate();
@@ -318,7 +318,7 @@ namespace Violin.Texter
 
 				if (_fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
 				{
-					await Task.Run(() => ImportContent(_fileDialog.FileName, isTranslate));
+					ImportContent(_fileDialog.FileName, isTranslate);
 				}
 			}
 
