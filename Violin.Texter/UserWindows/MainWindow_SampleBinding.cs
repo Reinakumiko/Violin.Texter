@@ -11,6 +11,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Violin.Texter.Classes;
 using Violin.Texter.UserWindows;
+using Violin.Texter.Core.Translations;
+using Violin.Texter.Core.Exceptions;
 
 namespace Violin.Texter
 {
@@ -187,13 +189,13 @@ namespace Violin.Texter
 			SaveContent(() =>
 			{
 				var originContent = EditProgress.OriginContent;
-				var changedList = EditProgress.Translations.Where(t => t.State == TranslateState.Changed).ToList();
+				var changedList = EditProgress.Translations.Where(t => t.State == TranslationState.Changed).ToList();
 
 				changedList.ForEach(t =>
 				{
 					var regMatch = $@"(?<={t.Key}\:\t?\d\s?)" + "\".*\"";
 
-					originContent = Regex.Replace(originContent, regMatch, t.GetTranslateRendered());
+					originContent = Regex.Replace(originContent, regMatch, t.RenderTranslate());
 				});
 
 				return originContent;

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Violin.Texter.Core.Checker;
+using Violin.Texter.Core.StreamWorker;
 
 namespace Violin.Texter.Logger
 {
@@ -23,12 +25,7 @@ namespace Violin.Texter.Logger
 
 		static public void Log(this Stream stream, LogInfo<ExceptionInfo> logInfo)
 		{
-			using (var gzip = new GZipStream(stream, CompressionMode.Compress))
-			{
-				var encoded = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(logInfo));
-				gzip.Write(encoded, 0, encoded.Length);
-				gzip.WriteByte(Convert.ToByte(','));
-			}
+			stream.GZipSave($"{JsonConvert.SerializeObject(logInfo)},");
 		}
 
 		static public void Log(LogInfo<ExceptionInfo> logInfo)
@@ -46,11 +43,7 @@ namespace Violin.Texter.Logger
 			var filePath = $"{path}/{fileName}";
 			var fileInfo = new FileInfo(filePath);
 
-			if (!fileInfo.Directory.Exists)
-				fileInfo.Directory.Create();
-
-			if (!fileInfo.Exists)
-				fileInfo.Create().Close();
+			fileInfo.Check();
 
 			using (var file = fileInfo.Open(FileMode.Append, FileAccess.Write))
 			{

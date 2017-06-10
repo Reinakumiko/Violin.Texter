@@ -13,6 +13,7 @@ using MahApps.Metro.Controls.Dialogs;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Violin.Texter.Classes;
+using Violin.Texter.Core.Translations;
 using Violin.Texter.Logger;
 using Violin.Texter.UserWindows;
 
@@ -254,14 +255,12 @@ namespace Violin.Texter
 				var matchedResult = Regex.Matches(fileContent, @"[\d\w\._]+?\:\t?\d\s?" + "\".*\"").Cast<Match>().Select(m =>
 				{
 					var value = m.Value ?? string.Empty;
-					var translate = new TranslationItem()
+					var translate = new Translation()
 					{
 						Key = regMatchKey.Match(value).Value,
-						Value = new Translation()
-						{
-							Level = Convert.ToInt32(regMatchLevel.Match(value).Value),
-							Text = regMatchValue.Match(value).Value
-						}
+						Level = Convert.ToInt32(regMatchLevel.Match(value).Value),
+						Text = regMatchValue.Match(value).Value,
+						State = TranslationState.Empty
 					};
 
 					return translate;
@@ -270,7 +269,7 @@ namespace Violin.Texter
 				//查找已存在的相同key并且文本内容不同的段落
 				var updateResult = from import in matchedResult
 								   from progress in EditProgress.Translations
-								   where import.Key == progress.Key && (isTranslate ? (progress.Value.Translated != progress.Value.Translated) : (progress.Value.Text != import.Value.Text))
+								   where import.Key == progress.Key && (isTranslate ? (progress.Translated != progress.Translated) : (progress.Text != import.Text))
 								   select import;
 
 				//更新已存在的翻译段落(有更新的)
@@ -279,11 +278,11 @@ namespace Violin.Texter
 					var updateKey = EditProgress.Translations.Where(k => k.Key == t.Key).FirstOrDefault();
 
 					if (isTranslate)
-						updateKey.Value.Translated = t.Value.Translated;
+						updateKey.Translated = t.Translated;
 					else
-						updateKey.Value.Text = t.Value.Text;
+						updateKey.Text = t.Text;
 
-					updateKey.State = isTranslate ? TranslateState.TranslateUpdated : TranslateState.OriginUpdated;
+					updateKey.State = isTranslate ? TranslationState.TranslateUpdated : TranslationState.OriginUpdated;
 				});
 
 
@@ -296,7 +295,7 @@ namespace Violin.Texter
 				{
 					var importTranslate = matchedResult.Where(t => t.Key == k).FirstOrDefault();
 
-					importTranslate.State = TranslateState.New;
+					importTranslate.State = TranslationState.New;
 					EditProgress.Translations.Add(importTranslate);
 				});
 

@@ -79,24 +79,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Classes\CrashException.cs" />
     <Compile Include="Classes\SymbolCount.cs" />
-    <Compile Include="Classes\TranslateState.cs" />
-    <Compile Include="Classes\TranslateStateBrash.cs" />
-    <Compile Include="GZip\GZip.cs" />
     <Compile Include="Logger\ExceptionInfo.cs" />
     <Compile Include="Logger\ExceptionLogger.cs" />
     <Compile Include="Logger\Logger.cs" />
     <Compile Include="Logger\LogInfo.cs" />
     <Compile Include="Logger\SystemRunningInfo.cs" />
-    <Compile Include="Progress\ProgressState.cs" />
-    <Compile Include="StreamWorker\WriteWorker\GZipWrite.cs" />
     <Compile Include="UserWindows\CheckSymbol.xaml.cs">
       <DependentUpon>CheckSymbol.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Progress\EditProgress.cs" />
-    <Compile Include="Classes\TranslationItem.cs" />
-    <Compile Include="Classes\Translation.cs" />
     <Compile Include="UserWindows\MainWindow_NativeMethod.cs" />
     <Compile Include="UserWindows\MainWindow_SampleBinding.cs" />
     <Compile Include="UserWindows\UnhandledException.xaml.cs">
@@ -155,6 +146,10 @@
     <ProjectReference Include="..\Violin.Texter.Component\Violin.Texter.Component.csproj">
       <Project>{c0e91094-4b7b-405c-b434-503b00835056}</Project>
       <Name>Violin.Texter.Component</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Violin.Texter.Core\Violin.Texter.Core.csproj">
+      <Project>{470e067d-61e5-4760-af68-9ac92566ab3d}</Project>
+      <Name>Violin.Texter.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

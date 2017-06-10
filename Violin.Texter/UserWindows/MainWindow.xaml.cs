@@ -24,8 +24,11 @@ using MahApps.Metro.Controls.Dialogs;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Violin.Texter.Classes;
+using Violin.Texter.Core.Exceptions;
+using Violin.Texter.Core.Progresses;
+using Violin.Texter.Core.StreamWorker;
+using Violin.Texter.Core.Translations;
 using Violin.Texter.Logger;
-using Violin.Texter.Progress;
 using Violin.Texter.UserWindows;
 
 namespace Violin.Texter
@@ -47,7 +50,7 @@ namespace Violin.Texter
 		/// 当进度发生更改时触发的事件
 		/// </summary>
 		public event OnEditProgressChanged OnEditProgressChangedEventHandle;
-		
+
 		/// <summary>
 		/// 获取或设置当前进度的修改状态
 		/// </summary>
@@ -55,7 +58,7 @@ namespace Violin.Texter
 		{
 			get
 			{
-				return EditProgress.State == ProgressState.Saved;
+				return EditProgress.State == EditProgressState.Saved;
 			}
 			set
 			{
@@ -68,7 +71,12 @@ namespace Violin.Texter
 		/// <summary>
 		/// 当前被选中的翻译文本
 		/// </summary>
-		public TranslationItem CurrentItem { get; set; }
+		public Translation CurrentItem { get; set; }
+
+		/// <summary>
+		/// 选中项是否已被更改
+		/// </summary>
+		public bool ChangeSelected { get; set; }
 
 		/// <summary>
 		/// 当前激活进度的私有成员
@@ -139,10 +147,14 @@ namespace Violin.Texter
 
 		private void keyList_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			CurrentItem = keyList.SelectedItem as TranslationItem;
+			var addedList = e.AddedItems.OfType<Translation>();
+			var removedList = e.RemovedItems.OfType<Translation>();
+			ChangeSelected = addedList.Count() == removedList.Count() && !addedList.Any(i => removedList.Contains(i));
+
+			CurrentItem = keyList.SelectedItem as Translation;
 
 			//获取已翻译的字符串
-			_transTranslated.Text = CurrentItem?.Value.Translated;
+			_transTranslated.Text = CurrentItem?.Translated;
 
 			//编辑框焦点
 			_transTranslated.Focus();
@@ -154,7 +166,7 @@ namespace Violin.Texter
 		private void _transTranslated_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			var currentText = (sender as TextBox).Text;
-			var transItem = CurrentItem?.Value;
+			var transItem = CurrentItem;
 
 			if (transItem == null || transItem.Translated == currentText || keyList.Items.Count < 1)
 				return;
@@ -178,7 +190,7 @@ namespace Violin.Texter
 
 			EditProgress = new EditProgress()
 			{
-				Translations = new List<TranslationItem>()
+				Translations = new List<Translation>()
 			};
 		}
 
@@ -203,18 +215,14 @@ namespace Violin.Texter
 				if (_fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
 				{
 					var file = new FileInfo(_fileDialog.FileName);
-					using (var fileStream = file.OpenRead())
-					using (var gzip = new GZipStream(fileStream, CompressionMode.Decompress))
-					using (var reader = new StreamReader(gzip))
-					{
-						var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(reader.ReadToEnd()));
 
-						//填充编辑进度
-						JsonConvert.PopulateObject(decoded, EditProgress);
+					var content = file.GZipRead();
+					var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(content));
 
-						if (EditProgress != null) //一般情况下都不会为空
-							EditProgress.OpenPath = file.FullName;
-					}
+					EditProgress = JsonConvert.DeserializeObject<EditProgress>(decoded);
+
+					if (EditProgress != null) //一般情况下都不会为空
+						EditProgress.OpenPath = file.FullName;
 				}
 			}
 		}

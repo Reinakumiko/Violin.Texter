@@ -87,7 +87,7 @@
 						 VerticalScrollBarVisibility="Auto"
 						 GotFocus="EditBox_GotFocus"
 						 LostFocus="EditBox_LostFocus"
-						 Text="{Binding ElementName=keyList,Path=SelectedItem.Value.Text}"></TextBox>
+						 Text="{Binding ElementName=keyList,Path=SelectedItem.Text}"></TextBox>
 
 				<Label Margin="0, 5, 0, 0" Grid.Row="1">翻文文本</Label>
 				<TextBox Name="_transTranslated" Margin="0, 30, 0, 0" Grid.Row="1"
