@@ -13,6 +13,8 @@ using MahApps.Metro.Controls.Dialogs;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Violin.Texter.Classes;
+using Violin.Texter.Core.Checker;
+using Violin.Texter.Core.StreamWorker;
 using Violin.Texter.Core.Translations;
 using Violin.Texter.Logger;
 using Violin.Texter.UserWindows;
@@ -61,19 +63,6 @@ namespace Violin.Texter
 		}
 
 		/// <summary>
-		/// 检查文件是否已创建
-		/// </summary>
-		/// <param name="fileInfo"></param>
-		private void CheckExists(FileInfo fileInfo)
-		{
-			if (!fileInfo.Directory.Exists)
-				fileInfo.Directory.Create();
-
-			if (!fileInfo.Exists)
-				fileInfo.Create().Dispose();
-		}
-
-		/// <summary>
 		/// 保存进度
 		/// </summary>
 		/// <returns>是否成功写入硬盘</returns>
@@ -116,19 +105,14 @@ namespace Violin.Texter
 		private bool SaveProgress(string path)
 		{
 			var fileInfo = new FileInfo(path);
-			CheckExists(fileInfo);
+			fileInfo.Check();
 
 			try
 			{
-				using (var file = fileInfo.Open(FileMode.Truncate, FileAccess.Write))
-				using (var gzip = new GZipStream(file, CompressionMode.Compress))
-				{
-					var jsonString = JsonConvert.SerializeObject(EditProgress);
-					var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));
+				var jsonString = JsonConvert.SerializeObject(EditProgress);
+				var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));
 
-					var byteContent = Encoding.UTF8.GetBytes(encoded);
-					gzip.Write(byteContent, 0, byteContent.Length);
-				}
+				GZipExtension.GZipSave(fileInfo, encoded);
 			}
 			catch (Exception)
 			{
@@ -155,7 +139,7 @@ namespace Violin.Texter
 				if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
 				{
 					var file = new FileInfo(dialog.FileName);
-					CheckExists(file);
+					file.Check();
 
 					using (var fileStream = file.Open(FileMode.Truncate, FileAccess.Write))
 					using (var writer = new StreamWriter(fileStream))
