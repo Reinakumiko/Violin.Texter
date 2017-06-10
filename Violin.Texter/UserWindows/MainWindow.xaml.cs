@@ -59,8 +59,8 @@ namespace Violin.Texter
 			}
 			set
 			{
-				if (!value)
-					EditProgress.State = ProgressState.Saved;
+				if (!value && EditProgress != null)
+					EditProgress.State = EditProgressState.Saved;
 			}
 		}
 
@@ -159,7 +159,9 @@ namespace Violin.Texter
 			if (transItem == null || transItem.Translated == currentText || keyList.Items.Count < 1)
 				return;
 
-			CurrentItem.State = TranslateState.ChangedNotSave;
+			if (!ChangeSelected)
+				CurrentItem.State = TranslationState.ChangedNotSave;
+
 			transItem.Translated = currentText;
 			IsProgressChanged = true;
 		}
@@ -172,7 +174,7 @@ namespace Violin.Texter
 		private async void CreateProgress_Click(object sender, RoutedEventArgs e)
 		{
 			if (EditProgress != null)
-				await await CloseCurrentProgress();
+				await CloseCurrentProgress();
 
 			EditProgress = new EditProgress()
 			{
@@ -188,7 +190,7 @@ namespace Violin.Texter
 		private async void OpenProgress_Click(object sender, RoutedEventArgs e)
 		{
 			if (EditProgress != null)
-				await await CloseCurrentProgress();
+				await CloseCurrentProgress();
 
 			IsProgressChanged = false;
 			using (var _fileDialog = new CommonOpenFileDialog())

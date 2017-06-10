@@ -112,7 +112,7 @@ namespace Violin.Texter
 				return;
 			}
 
-			await await CloseCurrentProgress();
+			await CloseCurrentProgress();
 		}
 
 		private void EditBox_GotFocus(object sender, RoutedEventArgs e)

@@ -134,7 +134,7 @@ namespace Violin.Texter
 				return false;
 			}
 
-			EditProgress.Translations.Where(t => t.State == TranslateState.ChangedNotSave).Any(t => (t.State = TranslateState.Changed) == TranslateState.Changed);
+			EditProgress.Translations.Where(t => t.State != TranslationState.Changed).ToList().ForEach(t => t.State = TranslationState.Changed);
 			return true;
 		}
 
@@ -165,7 +165,7 @@ namespace Violin.Texter
 			}
 		}
 
-		private async Task<Task> CloseCurrentProgress()
+		private async Task CloseCurrentProgress()
 		{
 			Func<Task<MessageDialogResult>> resultAction = async () =>
 			{
@@ -204,7 +204,7 @@ namespace Violin.Texter
 				});
 			};
 
-			return Task.Factory.StartNew(taskAction, await resultAction());
+			taskAction(await resultAction());
 		}
 		
 		private void SetListItems<T>(IEnumerable<T> list = null)

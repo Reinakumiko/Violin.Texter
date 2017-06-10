@@ -13,14 +13,14 @@ namespace Violin.Texter.Logger
 	{
 		static public string Name
 		{
-			get { return $"exception_{DateTime.Now:yyyyMMdd}.log";  }
+			get { return $"exception_{DateTime.Now:yyyyMMdd}.log"; }
 		}
 
 		static public string Path
 		{
 			get { return "./logs"; }
 		}
-		
+
 		static public void Log(this Stream stream, LogInfo<ExceptionInfo> logInfo)
 		{
 			using (var gzip = new GZipStream(stream, CompressionMode.Compress))
