@@ -189,7 +189,7 @@ namespace Violin.Texter
 			SaveContent(() =>
 			{
 				var originContent = EditProgress.OriginContent;
-				var changedList = EditProgress.Translations.Where(t => t.State == TranslationState.Changed).ToList();
+				var changedList = EditProgress.Translations.Where(t => t.IsTranslated).ToList();
 
 				changedList.ForEach(t =>
 				{

@@ -223,6 +223,9 @@ namespace Violin.Texter
 
 					EditProgress = JsonConvert.DeserializeObject<EditProgress>(decoded);
 
+					//打开进度时设置初始状态
+					EditProgress.Translations.ForEach(r => r.State = r.IsTranslated ? TranslationState.Changed : TranslationState.Empty);
+
 					if (EditProgress != null) //一般情况下都不会为空
 						EditProgress.OpenPath = file.FullName;
 				}
