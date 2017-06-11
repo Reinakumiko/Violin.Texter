@@ -253,7 +253,7 @@ namespace Violin.Texter
 				//查找已存在的相同key并且文本内容不同的段落
 				var updateResult = from import in matchedResult
 								   from progress in EditProgress.Translations
-								   where import.Key == progress.Key && (isTranslate ? (progress.Translated != progress.Translated) : (progress.Text != import.Text))
+								   where import.Key == progress.Key && (isTranslate ? (progress.Translated != import.Text) : (progress.Text != import.Text))
 								   select import;
 
 				//更新已存在的翻译段落(有更新的)
@@ -262,7 +262,7 @@ namespace Violin.Texter
 					var updateKey = EditProgress.Translations.Where(k => k.Key == t.Key).FirstOrDefault();
 
 					if (isTranslate)
-						updateKey.Translated = t.Translated;
+						updateKey.Translated = t.Text;
 					else
 						updateKey.Text = t.Text;
 
@@ -282,6 +282,9 @@ namespace Violin.Texter
 					importTranslate.State = TranslationState.New;
 					EditProgress.Translations.Add(importTranslate);
 				});
+
+				if (isTranslate)
+					return;
 
 				EditProgress.OriginName = fileInfo.Name;
 				EditProgress.OriginContent = fileContent;
