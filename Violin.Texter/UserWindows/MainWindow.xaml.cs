@@ -117,6 +117,8 @@ namespace Violin.Texter
 				UnhandledExceptionLog(exception, true); //true -> crash on dialog close
 
 				DisplayUnhandleExceptionDialog(exception, e.IsTerminating);
+
+				ProgressSave();
 			};
 
 			//捕捉应用程序未拦截的异常(可被拦截)
