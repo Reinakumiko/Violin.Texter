@@ -135,7 +135,7 @@ namespace Violin.Texter.Core.Translations
 		/// <returns>翻译文本的字符串结果</returns>
 		public string RenderTranslate()
 		{
-			return $"\"{Translated.Replace("\"", "\\\"")}\"";
+			return $"\"{Translated?.Replace("\"", "\\\"")}\"";
 		}
 
 		/// <summary>
