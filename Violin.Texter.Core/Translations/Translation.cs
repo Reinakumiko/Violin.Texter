@@ -80,6 +80,8 @@ namespace Violin.Texter.Core.Translations
 				_translation = value;
 
 				OnTranslationChanged?.Invoke(this);
+
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Brush)));
 			}
 		}
 
