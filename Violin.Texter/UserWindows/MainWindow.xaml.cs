@@ -29,6 +29,7 @@ using Violin.Texter.Core.Progresses;
 using Violin.Texter.Core.StreamWorker;
 using Violin.Texter.Core.Translations;
 using Violin.Texter.Logger;
+using Violin.Texter.Notify;
 using Violin.Texter.UserWindows;
 
 namespace Violin.Texter
@@ -192,7 +193,7 @@ namespace Violin.Texter
 
 			EditProgress = new EditProgress()
 			{
-				Translations = new List<Translation>()
+				Translations = new NotifyList<Translation>()
 			};
 		}
 

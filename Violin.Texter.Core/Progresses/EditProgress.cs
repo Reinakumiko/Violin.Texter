@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Violin.Texter.Core.Translations;
+using Violin.Texter.Notify;
 
 namespace Violin.Texter.Core.Progresses
 {
@@ -16,7 +17,7 @@ namespace Violin.Texter.Core.Progresses
 		/// <summary>
 		///	可翻译的文本对象
 		/// </summary>
-		public List<Translation> Translations { get; set; }
+		public NotifyList<Translation> Translations { get; set; }
 
 		/// <summary>
 		/// 该文本的原文
