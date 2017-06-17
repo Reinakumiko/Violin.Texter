@@ -188,8 +188,7 @@ namespace Violin.Texter
 		/// <param name="e"></param>
 		private async void CreateProgress_Click(object sender, RoutedEventArgs e)
 		{
-			if (EditProgress != null)
-				await CloseCurrentProgress();
+			await CloseCurrentProgress();
 
 			EditProgress = new EditProgress()
 			{

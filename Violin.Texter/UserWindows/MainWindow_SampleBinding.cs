@@ -179,13 +179,26 @@ namespace Violin.Texter
 			SymbolDialog.Show();
 		}
 
-		private void ExportOrigin_Click(object sender, RoutedEventArgs e)
+		private async void ExportOrigin_Click(object sender, RoutedEventArgs e)
 		{
+			if (EditProgress == null)
+			{
+				await this.ShowMessageAsync("无效的操作", "当前未打开任何进度，无法导出文本。");
+				return;
+			}
+
 			SaveContent(() => EditProgress.OriginContent);
 		}
 
-		private void ExportTranslated_Click(object sender, RoutedEventArgs e)
+		private async void ExportTranslated_Click(object sender, RoutedEventArgs e)
 		{
+			if (EditProgress == null)
+			{
+				await this.ShowMessageAsync("无效的操作", "当前未打开任何进度，无法导出文本。");
+				return;
+			}
+
+
 			SaveContent(() =>
 			{
 				var originContent = EditProgress.OriginContent;

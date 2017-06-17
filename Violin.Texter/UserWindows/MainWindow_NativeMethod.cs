@@ -123,14 +123,8 @@ namespace Violin.Texter
 			return true;
 		}
 
-		private async void SaveContent(Func<string> action)
+		private void SaveContent(Func<string> action)
 		{
-			if (EditProgress == null)
-			{
-				await this.ShowMessageAsync("无效的操作", "当前未打开任何进度，无法导出文本。");
-				return;
-			}
-
 			using (var dialog = new CommonSaveFileDialog())
 			{
 				dialog.DefaultExtension = ".yml";
@@ -152,46 +146,38 @@ namespace Violin.Texter
 
 		private async Task CloseCurrentProgress()
 		{
-			Func<Task<MessageDialogResult>> resultAction = async () =>
-			{
-				if (IsProgressChanged) //不这么写这个消息框Task就算不在条件内也会触发
-				{
-					var taskResult = this.ShowMessageAsync("保存进度", "当前进度未保存，是否要保存当前进度。", MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings()
-					{
-						AffirmativeButtonText = "是",
-						NegativeButtonText = "否"
-					});
-
-					//将异步等待结果返回
-					return await taskResult;
-				}
-
-				//返回默认
-				return default(MessageDialogResult);
-			};
-
-			Action<object> taskAction = (result) =>
-			{
-				switch ((MessageDialogResult)result)
-				{
-					case MessageDialogResult.Affirmative:
-						if (!ProgressSave())
-							break;
-						return;
-					case MessageDialogResult.Negative:
-					default:
-						break;
-				}
-
-				this.Invoke(() =>
-				{
-					EditProgress = null;
-				});
-			};
-
-			taskAction(await resultAction());
+			if (EditProgress != null)
+				await CloseEditProgress(EditProgress);
 		}
-		
+
+		private async Task CloseEditProgress(EditProgress progress)
+		{
+			var result = default(MessageDialogResult);
+
+			if (IsProgressChanged) //不这么写这个消息框Task就算不在条件内也会触发
+			{
+				var taskResult = this.ShowMessageAsync("保存进度", "当前进度未保存，是否要保存当前进度。", MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings()
+				{
+					AffirmativeButtonText = "是",
+					NegativeButtonText = "否"
+				});
+
+				//将异步等待结果返回
+				result = await taskResult;
+			}
+
+			switch (result)
+			{
+				case MessageDialogResult.Affirmative:
+					if (!ProgressSave(progress))
+						break;
+					return;
+				case MessageDialogResult.Negative:
+				default:
+					break;
+			}
+		}
+
 		private void SetListItems<T>(IEnumerable<T> list = null)
 		{
 			if (list != null && list.Count() > 0)
