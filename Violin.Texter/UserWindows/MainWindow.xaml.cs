@@ -119,7 +119,7 @@ namespace Violin.Texter
 
 				DisplayUnhandleExceptionDialog(exception, e.IsTerminating);
 
-				ProgressSave();
+				ProgressSave(EditProgress);
 			};
 
 			//捕捉应用程序未拦截的异常(可被拦截)

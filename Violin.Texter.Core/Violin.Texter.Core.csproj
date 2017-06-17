@@ -55,8 +55,10 @@
   <ItemGroup>
     <Compile Include="Checker\ArgumentCheck.cs" />
     <Compile Include="Checker\PathChecker.cs" />
+    <Compile Include="Enumeration\EnumerationExtension.cs" />
     <Compile Include="EventArguments\ValueChangedEventArgs.cs" />
     <Compile Include="Exceptions\CrashException.cs" />
+    <Compile Include="Notify\NotifyList.cs" />
     <Compile Include="Progresses\EditProgress.cs" />
     <Compile Include="Progresses\EditProgressState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

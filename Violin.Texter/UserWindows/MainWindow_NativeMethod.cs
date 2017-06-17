@@ -66,27 +66,27 @@ namespace Violin.Texter
 		/// 保存进度
 		/// </summary>
 		/// <returns>是否成功写入硬盘</returns>
-		private bool ProgressSave()
+		private bool ProgressSave(EditProgress progress)
 		{
 			IsProgressChanged = false;
 
 			//如果文件未保存过则转为另存为执行
-			return string.IsNullOrWhiteSpace(EditProgress.OpenPath)
-						 ? ProgressSaveAs()
-						 : SaveProgress(EditProgress.OpenPath);
+			return string.IsNullOrWhiteSpace(progress.OpenPath)
+						 ? ProgressSaveAs(progress)
+						 : SaveProgress(progress, progress.OpenPath);
 		}
 
 		/// <summary>
 		/// 进度另存为
 		/// </summary>
 		/// <returns></returns>
-		private bool ProgressSaveAs()
+		private bool ProgressSaveAs(EditProgress progress)
 		{
 			IsProgressChanged = false;
 
 			using (var dialog = new CommonSaveFileDialog())
 			{
-				var file = new FileInfo(EditProgress.OriginName);
+				var file = new FileInfo(progress.OriginName);
 				var fileName = file.Name.Replace(file.Extension, "");
 
 				dialog.DefaultExtension = ".edp";
@@ -95,21 +95,21 @@ namespace Violin.Texter
 
 				if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
 				{
-					return SaveProgress(dialog.FileName);
+					return SaveProgress(progress, dialog.FileName);
 				}
 			}
 
 			return false;
 		}
 
-		private bool SaveProgress(string path)
+		private bool SaveProgress(EditProgress progress, string path)
 		{
 			var fileInfo = new FileInfo(path);
 			fileInfo.Check();
 
 			try
 			{
-				var jsonString = JsonConvert.SerializeObject(EditProgress);
+				var jsonString = JsonConvert.SerializeObject(progress);
 				var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(jsonString));
 
 				GZipExtension.GZipSave(fileInfo, encoded);
@@ -119,7 +119,7 @@ namespace Violin.Texter
 				return false;
 			}
 
-			EditProgress.Translations.Where(t => t.State != TranslationState.Changed).ToList().ForEach(t => t.State = TranslationState.Changed);
+			progress.Translations.Where(t => t.State != TranslationState.Changed).ForEach(t => t.State = TranslationState.Changed);
 			return true;
 		}
 

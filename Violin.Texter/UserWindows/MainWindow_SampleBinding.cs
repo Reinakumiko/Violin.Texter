@@ -92,7 +92,7 @@ namespace Violin.Texter
 				return;
 			}
 
-			ProgressSave();
+			ProgressSave(EditProgress);
 		}
 
 		private void SaveAs_Click(object sender, RoutedEventArgs e)
@@ -103,7 +103,7 @@ namespace Violin.Texter
 				return;
 			}
 
-			ProgressSaveAs();
+			ProgressSaveAs(EditProgress);
 		}
 
 		private async void CloseProgress_Click(object sender, RoutedEventArgs e)
