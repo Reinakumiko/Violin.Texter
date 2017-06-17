@@ -26,7 +26,6 @@ namespace Violin.Texter
 {
 	public partial class MainWindow
 	{
-
 		/// <summary>
 		/// 显示未处理的程序异常
 		/// </summary>
@@ -307,6 +306,14 @@ namespace Violin.Texter
 			}
 
 			await dialogController.CloseAsync();
+		}
+
+		private async Task CheckValidProgress(EditProgress progress, string title = "", string content = "")
+		{
+			if (progress != null)
+				return;
+
+			await this.ShowMessageAsync(title, content);
 		}
 	}
 }

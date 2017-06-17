@@ -55,7 +55,11 @@
   <ItemGroup>
     <Compile Include="Checker\ArgumentCheck.cs" />
     <Compile Include="Checker\PathChecker.cs" />
+    <Compile Include="Dialogs\BaseDialog.cs" />
+    <Compile Include="Dialogs\DialogResult.cs" />
+    <Compile Include="Dialogs\SaveDialog.cs" />
     <Compile Include="Enumeration\EnumerationExtension.cs" />
+    <Compile Include="EventArguments\SelectResultEventArgs.cs" />
     <Compile Include="EventArguments\ValueChangedEventArgs.cs" />
     <Compile Include="Exceptions\CrashException.cs" />
     <Compile Include="Exceptions\MessageDialogException.cs" />

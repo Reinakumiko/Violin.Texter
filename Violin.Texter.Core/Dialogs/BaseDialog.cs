@@ -32,5 +32,19 @@ namespace Violin.Texter.Core.Dialogs
 		{
 			Dialog.Dispose();
 		}
+
+		public void ShowDialog()
+		{
+			var dialogResult = Dialog.ShowDialog();
+
+			OnDialogComplete?.Invoke(Dialog, new SelectResultEventArgs<DialogResult>()
+			{
+				Result = new DialogResult()
+				{
+					Result = dialogResult,
+					Data = Dialog.FileName
+				}
+			});
+		}
 	}
 }
