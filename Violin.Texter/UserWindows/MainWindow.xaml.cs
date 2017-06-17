@@ -126,6 +126,13 @@ namespace Violin.Texter
 			Application.Current.DispatcherUnhandledException += (sender, e) =>
 			{
 				var exception = e.Exception;
+
+				if (exception is MessageDialogException)
+				{
+					DisplayMessages(exception as MessageDialogException);
+					return;
+				}
+
 				if (exception is CrashException)
 					e.Handled = !(e.Exception as CrashException).Crash;
 				else

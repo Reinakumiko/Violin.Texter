@@ -14,6 +14,9 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Violin.Texter.Classes;
 using Violin.Texter.Core.Checker;
+using Violin.Texter.Core.Enumeration;
+using Violin.Texter.Core.Exceptions;
+using Violin.Texter.Core.Progresses;
 using Violin.Texter.Core.StreamWorker;
 using Violin.Texter.Core.Translations;
 using Violin.Texter.Logger;
@@ -51,6 +54,15 @@ namespace Violin.Texter
 					IsCrash = crash
 				}
 			});
+		}
+
+		/// <summary>
+		/// 显示因为操作失误引起的异常
+		/// </summary>
+		/// <param name="ex">操作引发的失误异常</param>
+		private async void DisplayMessages(MessageDialogException ex)
+		{
+			await this.ShowMessageAsync(ex.Title, ex.Content);
 		}
 
 		/// <summary>

@@ -87,10 +87,7 @@ namespace Violin.Texter
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
 			if (EditProgress == null)
-			{
-				this.ShowMessageAsync("无法保存", "当前没有已打开任务进度。");
-				return;
-			}
+				throw new MessageDialogException("无效的操作", "当前没有已打开的任务进度。");
 
 			ProgressSave(EditProgress);
 		}
@@ -98,10 +95,7 @@ namespace Violin.Texter
 		private void SaveAs_Click(object sender, RoutedEventArgs e)
 		{
 			if (EditProgress == null)
-			{
-				this.ShowMessageAsync("无法保存", "当前没有已打开任务进度。");
-				return;
-			}
+				throw new MessageDialogException("无效的操作", "当前没有已打开的任务进度。");
 
 			ProgressSaveAs(EditProgress);
 		}
@@ -109,10 +103,7 @@ namespace Violin.Texter
 		private async void CloseProgress_Click(object sender, RoutedEventArgs e)
 		{
 			if (EditProgress == null)
-			{
-				await this.ShowMessageAsync("操作失败", "当前未打开任何进度。");
-				return;
-			}
+				throw new MessageDialogException("无效的操作", "当前没有已打开的任务进度。");
 
 			await CloseCurrentProgress();
 		}
