@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace Violin.Texter.Notify
 {
 	/// <summary>
-	/// 
+	/// 表示一个可供元素修改通知的通知列表
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">表示一个包含属性通知的对象</typeparam>
 	public class NotifyList<T> : List<T>, INotifyCollectionChanged, INotifyPropertyChanged, IList<T>, IList, IEnumerable, IEnumerable<T>, ICollection, ICollection<T>, IReadOnlyList<T>, IReadOnlyCollection<T>
 		where T : INotifyPropertyChanged
 	{
