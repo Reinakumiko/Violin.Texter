@@ -159,7 +159,7 @@ namespace Violin.Texter
 		{
 			var addedList = e.AddedItems.OfType<Translation>();
 			var removedList = e.RemovedItems.OfType<Translation>();
-			ChangeSelected = addedList.Count() == removedList.Count() && !addedList.Any(i => removedList.Contains(i));
+			ChangeSelected = addedList.Count() == removedList.Count() && addedList.Any(i => !removedList.Contains(i));
 
 			CurrentItem = keyList.SelectedItem as Translation;
 
