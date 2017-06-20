@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Violin.Texter.Core.Notify;
 using Violin.Texter.Core.Translations;
-using Violin.Texter.Notify;
 
 namespace Violin.Texter.Core.Progresses
 {

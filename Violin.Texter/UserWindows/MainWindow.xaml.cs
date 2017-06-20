@@ -25,6 +25,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
 using Violin.Texter.Classes;
 using Violin.Texter.Core.Exceptions;
+using Violin.Texter.Core.Notify;
 using Violin.Texter.Core.Progresses;
 using Violin.Texter.Core.StreamWorker;
 using Violin.Texter.Core.Translations;
@@ -125,7 +126,11 @@ namespace Violin.Texter
 			//捕捉应用程序未拦截的异常(可被拦截)
 			Application.Current.DispatcherUnhandledException += (sender, e) =>
 			{
+				//被触发的异常
 				var exception = e.Exception;
+
+				//默认异常都需要被拦截
+				e.Handled = true;
 
 				if (exception is MessageDialogException)
 				{
@@ -135,8 +140,6 @@ namespace Violin.Texter
 
 				if (exception is CrashException)
 					e.Handled = !(e.Exception as CrashException).Crash;
-				else
-					e.Handled = true;
 
 				if (e.Handled)
 				{
