@@ -225,13 +225,25 @@ namespace Violin.Texter
 					var content = file.GZipRead();
 					var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(content));
 
-					EditProgress = JsonConvert.DeserializeObject<EditProgress>(decoded);
+					var progress = JsonConvert.DeserializeObject<EditProgress>(decoded);
 
 					//打开进度时设置初始状态
-					EditProgress.Translations.ForEach(r => r.State = r.IsTranslated ? TranslationState.Changed : TranslationState.Empty);
+					progress.Translations.ForEach(r => r.State = r.IsTranslated ? TranslationState.Changed : TranslationState.Empty);
 
-					if (EditProgress != null) //一般情况下都不会为空
-						EditProgress.OpenPath = file.FullName;
+					//设置翻译条目的排序顺序
+					progress.Translations.Sort((x, y) =>
+					{
+						var xState = x.State == TranslationState.Changed ? 1 : -1;
+						var yState = y.State == TranslationState.Changed ? 1 : -1;
+
+						var stateSort = yState - xState;
+						return stateSort == 0 ? string.CompareOrdinal(x.Key, y.Key) : stateSort;
+					});
+
+					if (progress != null) //一般情况下都不会为空
+						progress.OpenPath = file.FullName;
+
+					EditProgress = progress;
 				}
 			}
 		}
