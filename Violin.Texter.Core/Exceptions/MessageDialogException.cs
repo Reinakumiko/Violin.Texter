@@ -10,6 +10,13 @@ namespace Violin.Texter.Core.Exceptions
 	{
 		public string Title { get; set; }
 		public string Content { get; set; }
+		public override string Message
+		{
+			get
+			{
+				return $"{Title}: {Content}";
+			}
+		}
 
 		public MessageDialogException(string title, string content)
 		{
