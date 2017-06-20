@@ -313,12 +313,17 @@ namespace Violin.Texter
 			await dialogController.CloseAsync();
 		}
 
-		private async Task CheckValidProgress(EditProgress progress, string title = "", string content = "")
+		private void CheckValidProgress(EditProgress progress)
+		{
+			CheckValidProgress(EditProgress, "无效的操作", "当前没有已打开的任务进度。");
+		}
+
+		private void CheckValidProgress(EditProgress progress, string title, string content)
 		{
 			if (progress != null)
 				return;
 
-			await this.ShowMessageAsync(title, content);
+			throw new MessageDialogException(title, content);
 		}
 	}
 }

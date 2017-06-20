@@ -86,25 +86,19 @@ namespace Violin.Texter
 
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
-			if (EditProgress == null)
-				throw new MessageDialogException("无效的操作", "当前没有已打开的任务进度。");
-
+			CheckValidProgress(EditProgress);
 			ProgressSave(EditProgress);
 		}
 
 		private void SaveAs_Click(object sender, RoutedEventArgs e)
 		{
-			if (EditProgress == null)
-				throw new MessageDialogException("无效的操作", "当前没有已打开的任务进度。");
-
+			CheckValidProgress(EditProgress);
 			ProgressSaveAs(EditProgress);
 		}
 
 		private async void CloseProgress_Click(object sender, RoutedEventArgs e)
 		{
-			if (EditProgress == null)
-				throw new MessageDialogException("无效的操作", "当前没有已打开的任务进度。");
-
+			CheckValidProgress(EditProgress);
 			await CloseCurrentProgress();
 		}
 
@@ -170,25 +164,15 @@ namespace Violin.Texter
 			SymbolDialog.Show();
 		}
 
-		private async void ExportOrigin_Click(object sender, RoutedEventArgs e)
+		private void ExportOrigin_Click(object sender, RoutedEventArgs e)
 		{
-			if (EditProgress == null)
-			{
-				await this.ShowMessageAsync("无效的操作", "当前未打开任何进度，无法导出文本。");
-				return;
-			}
-
+			CheckValidProgress(EditProgress, "无效的操作", "当前未打开任何进度，无法导出文本。");
 			SaveContent(() => EditProgress.OriginContent);
 		}
 
-		private async void ExportTranslated_Click(object sender, RoutedEventArgs e)
+		private void ExportTranslated_Click(object sender, RoutedEventArgs e)
 		{
-			if (EditProgress == null)
-			{
-				await this.ShowMessageAsync("无效的操作", "当前未打开任何进度，无法导出文本。");
-				return;
-			}
-
+			CheckValidProgress(EditProgress, "无效的操作", "当前未打开任何进度，无法导出文本。");
 
 			SaveContent(() =>
 			{
