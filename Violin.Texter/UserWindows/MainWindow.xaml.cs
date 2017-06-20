@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -23,15 +21,11 @@ using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Newtonsoft.Json;
-using Violin.Texter.Classes;
 using Violin.Texter.Core.Exceptions;
 using Violin.Texter.Core.Notify;
 using Violin.Texter.Core.Progresses;
 using Violin.Texter.Core.StreamWorker;
 using Violin.Texter.Core.Translations;
-using Violin.Texter.Logger;
-using Violin.Texter.Notify;
-using Violin.Texter.UserWindows;
 
 namespace Violin.Texter
 {
