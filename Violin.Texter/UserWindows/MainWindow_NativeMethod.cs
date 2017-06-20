@@ -159,6 +159,11 @@ namespace Violin.Texter
 		{
 			if (EditProgress != null)
 				await CloseEditProgress(EditProgress);
+
+			this.Invoke(() =>
+			{
+				EditProgress = null;
+			});
 		}
 
 		private async Task CloseEditProgress(EditProgress progress)
