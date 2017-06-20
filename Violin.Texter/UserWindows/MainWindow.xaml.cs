@@ -168,6 +168,9 @@ namespace Violin.Texter
 
 			//光标设置到末尾
 			_transTranslated.SelectionStart = _transTranslated.Text.Length;
+
+			//默认值设置后将修改状态设置为否
+			ChangeSelected = false;
 		}
 
 		private void _transTranslated_TextChanged(object sender, TextChangedEventArgs e)
@@ -225,10 +228,21 @@ namespace Violin.Texter
 					var content = file.GZipRead();
 					var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(content));
 
-					var progress = JsonConvert.DeserializeObject<EditProgress>(decoded);
+					var progress = new EditProgress();
+					JsonConvert.PopulateObject(decoded, progress);
 
 					//打开进度时设置初始状态
-					progress.Translations.ForEach(r => r.State = r.IsTranslated ? TranslationState.Changed : TranslationState.Empty);
+					progress.Translations.ForEach(r =>
+					{
+						var state = TranslationState.Empty;
+
+						if (r.Text == r.Translated)
+							state = TranslationState.SameWithOrigin;
+						else if (r.IsTranslated)
+							state = TranslationState.Changed;
+
+						r.State = state;
+					});
 
 					//设置翻译条目的排序顺序
 					progress.Translations.Sort((x, y) =>

@@ -37,7 +37,9 @@ namespace Violin.Texter.Core.RenderBrushes
 				{"Red", _converter.ConvertFrom("#FFE51400") as Brush },
 				{"Grey", _converter.ConvertFrom("#FFCFCFCF") as Brush },
 				{"Green", _converter.ConvertFrom("#FF60A917") as Brush },
-				{"Amber", _converter.ConvertFrom("#FFF0A30A") as Brush }
+				{"Amber", _converter.ConvertFrom("#FFF0A30A") as Brush },
+				{"Mauve", _converter.ConvertFrom("#CC76608A") as Brush },
+				{"Olive", _converter.ConvertFrom("#CC6D8764") as Brush }
 			};
 		}
 	}

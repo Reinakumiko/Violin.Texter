@@ -32,6 +32,11 @@ namespace Violin.Texter.Core.Translations
 		ChangedNotSave,
 
 		/// <summary>
+		/// 表示该翻译文本的原文与译文相同
+		/// </summary>
+		SameWithOrigin,
+
+		/// <summary>
 		/// 表示该翻译文本的原文已被更新
 		/// </summary>
 		OriginUpdated,

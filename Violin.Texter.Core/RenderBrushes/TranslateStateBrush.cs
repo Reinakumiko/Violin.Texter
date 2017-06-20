@@ -34,13 +34,14 @@ namespace Violin.Texter.Core.RenderBrushes
 			{
 				// 更新/新增条目
 				{ TranslationState.New, ColoredBrushes.Brushes["Red"] },
-				{ TranslationState.OriginUpdated, ColoredBrushes.Brushes["Red"] },
-				{ TranslationState.TranslateUpdated, ColoredBrushes.Brushes["Red"] },
+				{ TranslationState.OriginUpdated, ColoredBrushes.Brushes["Olive"] },
+				{ TranslationState.TranslateUpdated, ColoredBrushes.Brushes["Olive"] },
 
 				// 原始/修改条目
 				{ TranslationState.Changed, ColoredBrushes.Brushes["Green"] },
 				{ TranslationState.ChangedNotSave, ColoredBrushes.Brushes["Amber"] },
 				{ TranslationState.Empty, ColoredBrushes.Brushes["Grey"] },
+				{ TranslationState.SameWithOrigin, ColoredBrushes.Brushes["Mauve"] },
 			};
 		}
 	}
