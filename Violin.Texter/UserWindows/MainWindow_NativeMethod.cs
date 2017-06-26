@@ -134,8 +134,11 @@ namespace Violin.Texter
 			return true;
 		}
 
-		private void SaveContent(Func<string> action)
+		private async void SaveContent(Func<string> action)
 		{
+			var dialogController = await this.ShowProgressAsync("导出文本", "正在将本文内容导出...");
+			dialogController.SetIndeterminate();
+
 			using (var dialog = new CommonSaveFileDialog())
 			{
 				dialog.DefaultExtension = ".yml";
@@ -149,10 +152,12 @@ namespace Violin.Texter
 					using (var fileStream = file.Open(FileMode.Truncate, FileAccess.Write))
 					using (var writer = new StreamWriter(fileStream, new UTF8Encoding(true)))
 					{
-						writer.WriteLine(action?.Invoke());
+						writer.WriteLine(await Task.Run(action));
 					}
 				}
 			}
+
+			await dialogController.CloseAsync();
 		}
 
 		private async Task CloseCurrentProgress()

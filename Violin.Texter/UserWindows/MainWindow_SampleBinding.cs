@@ -173,7 +173,6 @@ namespace Violin.Texter
 		private void ExportTranslated_Click(object sender, RoutedEventArgs e)
 		{
 			CheckValidProgress(EditProgress, "无效的操作", "当前未打开任何进度，无法导出文本。");
-
 			SaveContent(() =>
 			{
 				var originContent = EditProgress.OriginContent;
