@@ -147,7 +147,7 @@ namespace Violin.Texter
 					file.Check();
 
 					using (var fileStream = file.Open(FileMode.Truncate, FileAccess.Write))
-					using (var writer = new StreamWriter(fileStream))
+					using (var writer = new StreamWriter(fileStream, new UTF8Encoding(true)))
 					{
 						writer.WriteLine(action?.Invoke());
 					}
