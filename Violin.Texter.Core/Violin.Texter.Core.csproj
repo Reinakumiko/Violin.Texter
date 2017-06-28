@@ -73,6 +73,7 @@
     <Compile Include="StreamWorker\StreamExtension.cs" />
     <Compile Include="Translations\Translation.cs" />
     <Compile Include="Translations\TranslationState.cs" />
+    <Compile Include="Translations\TranslationStateComparer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
