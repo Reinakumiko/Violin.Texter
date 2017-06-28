@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace Violin.Texter
 		{
 			get
 			{
-				return EditProgress.State == EditProgressState.Saved;
+				return EditProgress.Translations.Any(r => r.State == TranslationState.ChangedNotSave);
 			}
 			set
 			{
@@ -145,7 +146,7 @@ namespace Violin.Texter
 			OnEditProgressChangedEventHandle += editprogress =>
 			{
 				//重新绑定列表
-				SetListItems(EditProgress?.Translations);
+				SetListItems(EditProgress);
 
 				//重置编辑框
 				EditorReset();
@@ -210,8 +211,7 @@ namespace Violin.Texter
 		/// <param name="e"></param>
 		private async void OpenProgress_Click(object sender, RoutedEventArgs e)
 		{
-			if (EditProgress != null)
-				await CloseCurrentProgress();
+			await CloseCurrentProgress();
 
 			IsProgressChanged = false;
 			using (var _fileDialog = new CommonOpenFileDialog())
@@ -228,7 +228,10 @@ namespace Violin.Texter
 					var content = file.GZipRead();
 					var decoded = Encoding.UTF8.GetString(Convert.FromBase64String(content));
 
+					//初始化新的编辑进度
 					var progress = new EditProgress();
+
+					//从本地序列化填充到实例
 					JsonConvert.PopulateObject(decoded, progress);
 
 					//打开进度时设置初始状态
@@ -247,15 +250,11 @@ namespace Violin.Texter
 					//设置翻译条目的排序顺序
 					progress.Translations.Sort((x, y) =>
 					{
-						var xState = x.State == TranslationState.Changed ? 1 : -1;
-						var yState = y.State == TranslationState.Changed ? 1 : -1;
-
-						var stateSort = yState - xState;
+						var stateSort = TranslationStateComparer.CompareDesc(x.State, y.State);
 						return stateSort == 0 ? string.CompareOrdinal(x.Key, y.Key) : stateSort;
 					});
-
-					if (progress != null) //一般情况下都不会为空
-						progress.OpenPath = file.FullName;
+					
+					progress.OpenPath = file.FullName;
 
 					EditProgress = progress;
 				}

@@ -199,21 +199,26 @@ namespace Violin.Texter
 			}
 		}
 
-		private void SetListItems<T>(IEnumerable<T> list = null)
+		private void SetListItems(EditProgress progress)
 		{
-			if (list != null && list.Count() > 0)
-				keyList.ItemsSource = new ObservableCollection<T>(list);
-			else
-			{
-				var fillString = string.Empty;
+			var fillString = string.Empty;
 
-				if (EditProgress == null)
-					fillString = "当前未打开任何进度文件。";
+			if (progress != null)
+			{
+				var translations = progress.Translations;
+
+				if (translations != null || translations.Count > 0)
+				{
+					keyList.ItemsSource = translations;
+					return;
+				}
 				else
 					fillString = "当前列表内容为空。";
-
-				keyList.ItemsSource = new string[] { fillString };
 			}
+			else
+				fillString = "当前未打开任何进度文件。";
+
+			keyList.ItemsSource = new string[] { fillString };
 		}
 
 		private void UpdateEditList()
