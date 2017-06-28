@@ -202,6 +202,8 @@ namespace Violin.Texter
 			{
 				Translations = new NotifyList<Translation>()
 			};
+
+			SetListItems(EditProgress);
 		}
 
 		/// <summary>

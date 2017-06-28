@@ -207,7 +207,7 @@ namespace Violin.Texter
 			{
 				var translations = progress.Translations;
 
-				if (translations != null || translations.Count > 0)
+				if (translations != null && translations.Count > 0)
 				{
 					keyList.ItemsSource = translations;
 					return;
