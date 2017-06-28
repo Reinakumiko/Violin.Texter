@@ -260,5 +260,10 @@ namespace Violin.Texter
 				}
 			}
 		}
+
+		private void ContextIndex_Click(object sender, RoutedEventArgs e)
+		{
+			throw new MessageDialogException("功能未实现", "该功能暂未实现。");
+		}
 	}
 }

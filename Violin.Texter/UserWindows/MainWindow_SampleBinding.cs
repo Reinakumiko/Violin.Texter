@@ -13,6 +13,7 @@ using Violin.Texter.Classes;
 using Violin.Texter.UserWindows;
 using Violin.Texter.Core.Translations;
 using Violin.Texter.Core.Exceptions;
+using System.ComponentModel;
 
 namespace Violin.Texter
 {
@@ -164,12 +165,19 @@ namespace Violin.Texter
 			SymbolDialog.Show();
 		}
 
+		/// <summary>
+		/// 导出原文
+		/// </summary>
 		private void ExportOrigin_Click(object sender, RoutedEventArgs e)
 		{
 			CheckValidProgress(EditProgress, "无效的操作", "当前未打开任何进度，无法导出文本。");
 			SaveContent(() => EditProgress.OriginContent);
 		}
 
+
+		/// <summary>
+		/// 导出译文
+		/// </summary>
 		private void ExportTranslated_Click(object sender, RoutedEventArgs e)
 		{
 			CheckValidProgress(EditProgress, "无效的操作", "当前未打开任何进度，无法导出文本。");
@@ -182,11 +190,41 @@ namespace Violin.Texter
 				{
 					var regMatch = $@"(?<={t.Key}\:\t?\d\s?)" + "\".*\"";
 
-					originContent = Regex.Replace(originContent, regMatch, t.RenderTranslate());
+					originContent = Regex.Replace(originContent, regMatch, t.RenderTranslateText(true));
 				});
 
 				return originContent;
 			});
+		}
+
+		/// <summary>
+		/// 复制键项目
+		/// </summary>
+		private void KeyCopy_Click(object sender, RoutedEventArgs e)
+		{
+			var translateContent = $"{CurrentItem.Key}:{CurrentItem.Level} \r\n\tOrigin: {CurrentItem.Text} \r\n\tTranslated: {CurrentItem.Translated}";
+
+			Clipboard.SetText(translateContent);
+		}
+
+		/// <summary>
+		/// 移除键项目
+		/// </summary>
+		private void RemoveKey_Click(object sender, RoutedEventArgs e)
+		{
+			EditProgress.Translations.Remove(CurrentItem);
+		}
+
+		/// <summary>
+		/// 程序关闭时询问是否保存进度
+		/// </summary>
+		private async void MetroWindow_Closing(object sender, CancelEventArgs e)
+		{
+			e.Cancel = true;
+
+			await CloseCurrentProgress();
+
+			Application.Current.Shutdown();
 		}
 	}
 }

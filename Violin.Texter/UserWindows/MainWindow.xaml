@@ -7,7 +7,14 @@
 		xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
 		xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
+		Closing="MetroWindow_Closing"
         Title="wawwawa" MinHeight="500" MinWidth="800" Height="500" Width="800" BorderBrush="#FF41B1E1" BorderThickness="1,0,1,1" WindowStartupLocation="CenterScreen">
+	<Window.Resources>
+		<ContextMenu x:Key="keyListMenu">
+			<MenuItem Header="复制" Name="KeyCopy" Click="KeyCopy_Click"></MenuItem>
+			<MenuItem Header="移除项" Name="RemoveKey" Click="RemoveKey_Click"></MenuItem>
+		</ContextMenu>
+	</Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
@@ -39,6 +46,7 @@
 				<MenuItem Header="全选" Name="SelectAll" Click="SelectAll_Click"></MenuItem>
 				<Separator />
 				<MenuItem Header="检查符号" Name="CheckSymbol" Click="CheckSymbol_Click"></MenuItem>
+				<MenuItem Header="查找内容" Name="ContextIndex" Click="ContextIndex_Click"></MenuItem>
 			</MenuItem>
 			<MenuItem Header="生成">
 				<MenuItem Header="导出文本">
