@@ -97,8 +97,16 @@ namespace Violin.Texter
 
 			using (var dialog = new CommonSaveFileDialog())
 			{
-				var file = new FileInfo(progress.OriginName);
-				var fileName = file.Name.Replace(file.Extension, "");
+				var fileName = string.Empty;
+				var originName = progress?.OriginName;
+
+				if (originName != null)
+				{
+					var file = new FileInfo(progress.OriginName);
+					fileName = file.Name.Replace(file.Extension, "");
+				}
+				else
+					fileName = "edit";
 
 				dialog.DefaultExtension = ".edp";
 				dialog.DefaultFileName = $"{fileName}_progress";
