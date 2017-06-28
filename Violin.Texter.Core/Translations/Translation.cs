@@ -135,9 +135,9 @@ namespace Violin.Texter.Core.Translations
 		/// 获取翻译的渲染文本
 		/// </summary>
 		/// <returns>翻译文本的字符串结果</returns>
-		public string RenderTranslate()
+		public string RenderTranslateText(bool translated)
 		{
-			return $"\"{Translated?.Replace("\"", "\\\"")}\"";
+			return $"\"{(translated ? Translated : Text).Replace("\"", "\\\"")}\"";
 		}
 
 		/// <summary>
@@ -156,7 +156,7 @@ namespace Violin.Texter.Core.Translations
 		/// <returns>当前对象的字符串结果</returns>
 		public string ToString(bool translated)
 		{
-			return $"{Key}:{Level} \"{(translated ? Translated : Text).Replace("\"", "\\\"")}\"";
+			return $"{Key}:{Level} {RenderTranslateText(translated)}";
 		}
 	}
 }
