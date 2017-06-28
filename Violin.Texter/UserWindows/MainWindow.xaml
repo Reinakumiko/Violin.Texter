@@ -72,7 +72,7 @@
 				<ColumnDefinition Width="100*"/>
 				<ColumnDefinition Width="200*"/>
 			</Grid.ColumnDefinitions>
-			<ListBox Margin="10" Name="keyList" ScrollViewer.CanContentScroll="True" SelectionChanged="keyList_SelectionChanged" >
+			<ListBox Margin="10" Name="keyList" ScrollViewer.CanContentScroll="True" SelectionChanged="keyList_SelectionChanged" ContextMenu="{StaticResource keyListMenu}">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<WrapPanel>
