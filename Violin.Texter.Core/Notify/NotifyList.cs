@@ -27,17 +27,27 @@ namespace Violin.Texter.Core.Notify
 
 		public new void Add(T item)
 		{
+			if (item == null)
+				return;
+
 			//添加进集合
 			base.Add(item);
 
 			//绑定事件
 			item.PropertyChanged += OnCollectionPropertyChange;
+
+			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
 		}
 
 		public new bool Remove(T item)
 		{
+			if (item == null)
+				return false;
+
 			//取消事件绑定
 			item.PropertyChanged -= OnCollectionPropertyChange;
+
+			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
 
 			//从集合中移除对象
 			return base.Remove(item);
