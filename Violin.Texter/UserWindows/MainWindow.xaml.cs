@@ -27,6 +27,7 @@ using Violin.Texter.Core.Notify;
 using Violin.Texter.Core.Progresses;
 using Violin.Texter.Core.StreamWorker;
 using Violin.Texter.Core.Translations;
+using Violin.Texter.UserWindows;
 
 namespace Violin.Texter
 {
@@ -265,7 +266,10 @@ namespace Violin.Texter
 
 		private void ContextIndex_Click(object sender, RoutedEventArgs e)
 		{
-			throw new MessageDialogException("功能未实现", "该功能暂未实现。");
+			var contentIndex = ContentIndex.Instance;
+			contentIndex.Owner = this;
+			contentIndex.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+			contentIndex.Show(EditProgress);
 		}
 	}
 }

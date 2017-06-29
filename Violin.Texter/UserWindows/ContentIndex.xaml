@@ -1,0 +1,35 @@
+﻿<Controls:MetroWindow x:Class="Violin.Texter.UserWindows.ContentIndex"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Violin.Texter.UserWindows"
+		xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="查找内容" Height="246.503" Width="414.364" ShowInTaskbar="False"
+		BorderBrush="#FF41B1E1" GlowBrush="#FF41B1E1" NonActiveBorderBrush="#FFA0522D" NonActiveWindowTitleBrush="#FFA0522D" NonActiveGlowBrush="#FFA0522D">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="11*"/>
+			<RowDefinition Height="10*"/>
+			<RowDefinition Height="40"/>
+		</Grid.RowDefinitions>
+		<TextBox Grid.Row="0" Margin="10,10,10,5" Name="_searchContent" Controls:TextBoxHelper.Watermark="请输入查找内容"></TextBox>
+		<Grid Grid.Row="1">
+			<Label Margin="10, 0, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left">查找范围</Label>
+			<RadioButton Margin="20, 25, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" GroupName="IndexZone" Name="indexZone_All" IsChecked="True">查找键与内容</RadioButton>
+			<RadioButton Margin="20, 45, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" GroupName="IndexZone" Name="indexZone_KeyOnly">只查找键</RadioButton>
+			<RadioButton Margin="20, 65, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" GroupName="IndexZone" Name="indexZone_ContentOnly">只查找内容</RadioButton>
+			<Label Margin="130, 0, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left">查找选项</Label>
+			<CheckBox Margin="140, 30, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Name="_sensitiveCase">区分大小写</CheckBox>
+			<CheckBox Margin="140, 60, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" Name="_useRegex">正则表达式</CheckBox>
+			<Label Margin="250, 0, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left">查找方向</Label>
+			<RadioButton Margin="260, 25, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" GroupName="IndexDirection" Name="groupName_Prev">向上</RadioButton>
+			<RadioButton Margin="320, 25, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" GroupName="IndexDirection" Name="groupName_Next" IsChecked="True">向下</RadioButton>
+		</Grid>
+		<Grid Grid.Row="2">
+			<Label Margin="10, 0, 0, 10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.65" Visibility="Hidden" Name="_resultText">未查找到包含该内容的项。</Label>
+			<Button Margin="0, 0, 10, 10" Width="110" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="_getNext">下一个</Button>
+		</Grid>
+	</Grid>
+</Controls:MetroWindow>

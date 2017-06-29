@@ -88,12 +88,19 @@
     <Compile Include="UserWindows\CheckSymbol.xaml.cs">
       <DependentUpon>CheckSymbol.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserWindows\ContentIndex.xaml.cs">
+      <DependentUpon>ContentIndex.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserWindows\MainWindow_NativeMethod.cs" />
     <Compile Include="UserWindows\MainWindow_SampleBinding.cs" />
     <Compile Include="UserWindows\UnhandledException.xaml.cs">
       <DependentUpon>UnhandledException.xaml</DependentUpon>
     </Compile>
     <Page Include="UserWindows\CheckSymbol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserWindows\ContentIndex.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
