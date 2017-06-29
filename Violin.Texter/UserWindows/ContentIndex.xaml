@@ -1,20 +1,27 @@
-﻿<Controls:MetroWindow x:Class="Violin.Texter.UserWindows.ContentIndex"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Violin.Texter.UserWindows"
-		xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d"
-        Title="查找内容" Height="246.503" Width="414.364" ShowInTaskbar="False"
-		BorderBrush="#FF41B1E1" GlowBrush="#FF41B1E1" NonActiveBorderBrush="#FFA0522D" NonActiveWindowTitleBrush="#FFA0522D" NonActiveGlowBrush="#FFA0522D">
+﻿<Controls:MetroWindow x:Class="Violin.Texter.UserWindows.ContentIndex" 
+					  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+					  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+					  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+					  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+					  xmlns:local="clr-namespace:Violin.Texter.UserWindows" 
+					  xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" 
+					  mc:Ignorable="d" 
+					  Title="查找内容" Height="246.503" Width="414.364" ShowInTaskbar="False" 
+					  Closing="MetroWindow_Closing"
+					  BorderBrush="#FF41B1E1" GlowBrush="#FF41B1E1" NonActiveBorderBrush="#FFA0522D" NonActiveWindowTitleBrush="#FFA0522D" NonActiveGlowBrush="#FFA0522D">
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="11*"/>
 			<RowDefinition Height="10*"/>
 			<RowDefinition Height="40"/>
 		</Grid.RowDefinitions>
-		<TextBox Grid.Row="0" Margin="10,10,10,5" Name="_searchContent" Controls:TextBoxHelper.Watermark="请输入查找内容"></TextBox>
+		<TextBox Grid.Row="0" Margin="10,10,10,5" Name="_searchContent" 
+				 Controls:TextBoxHelper.Watermark="请输入查找内容" 
+				 VerticalScrollBarVisibility="Auto" 
+				 ScrollViewer.CanContentScroll="True" 
+				 TextWrapping="Wrap" 
+				 AcceptsReturn="True" 
+				 AcceptsTab="True"></TextBox>
 		<Grid Grid.Row="1">
 			<Label Margin="10, 0, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left">查找范围</Label>
 			<RadioButton Margin="20, 25, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" GroupName="IndexZone" Name="indexZone_All" IsChecked="True">查找键与内容</RadioButton>

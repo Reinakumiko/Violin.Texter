@@ -100,5 +100,17 @@ namespace Violin.Texter.UserWindows
 			else
 				throw new IndexOutOfRangeException();
 		}
+
+		private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+			//拦截窗体的关闭命令
+			e.Cancel = true;
+
+			//将窗体隐藏
+			this.Hide();
+
+			//将拥有者设置为空
+			this.Owner = null;
+		}
 	}
 }

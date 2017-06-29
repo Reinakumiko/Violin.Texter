@@ -63,6 +63,8 @@
     <Compile Include="EventArguments\ValueChangedEventArgs.cs" />
     <Compile Include="Exceptions\CrashException.cs" />
     <Compile Include="Exceptions\MessageDialogException.cs" />
+    <Compile Include="IndexEnumeration\IndexDirection.cs" />
+    <Compile Include="IndexEnumeration\IndexZones.cs" />
     <Compile Include="Notify\NotifyList.cs" />
     <Compile Include="Progresses\EditProgress.cs" />
     <Compile Include="Progresses\EditProgressState.cs" />
