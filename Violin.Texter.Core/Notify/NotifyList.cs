@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +13,6 @@ namespace Violin.Texter.Core.Notify
 	/// 表示一个可供元素修改通知的通知列表
 	/// </summary>
 	/// <typeparam name="T">表示一个包含属性通知的对象</typeparam>
-	//[DebuggerDisplay("{State} || {(int)Text.FirstOrDefault()}")]
 	public class NotifyList<T> : List<T>, INotifyCollectionChanged, INotifyPropertyChanged, IList<T>, IList, IEnumerable, IEnumerable<T>, ICollection, ICollection<T>, IReadOnlyList<T>, IReadOnlyCollection<T>
 		where T : INotifyPropertyChanged
 	{
