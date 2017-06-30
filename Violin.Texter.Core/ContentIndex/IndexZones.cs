@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Violin.Texter.Core.IndexEnumeration
+namespace Violin.Texter.Core.ContentIndex
 {
 	/// <summary>
 	/// 表示定位时的范围
