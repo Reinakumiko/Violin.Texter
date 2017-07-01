@@ -6,7 +6,7 @@
 					  xmlns:local="clr-namespace:Violin.Texter.UserWindows" 
 					  xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls" 
 					  mc:Ignorable="d" 
-					  Title="查找内容" Height="246.503" Width="414.364" ShowInTaskbar="False" 
+					  Title="查找内容" Height="246.503" Width="414.364" ShowInTaskbar="False" ResizeMode="NoResize" ShowMaxRestoreButton="False"
 					  Closing="MetroWindow_Closing"
 					  BorderBrush="#FF41B1E1" GlowBrush="#FF41B1E1" NonActiveBorderBrush="#FFA0522D" NonActiveWindowTitleBrush="#FFA0522D" NonActiveGlowBrush="#FFA0522D">
 	<Grid>
@@ -35,8 +35,10 @@
 			<RadioButton Margin="320, 25, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" GroupName="IndexDirection" Name="groupName_Next" IsChecked="True">向下</RadioButton>
 		</Grid>
 		<Grid Grid.Row="2">
-			<Label Margin="10, 0, 0, 10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.65" Visibility="Hidden" Name="_resultText">未查找到包含该内容的项。</Label>
-			<Button Margin="0, 0, 10, 10" Width="110" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="_getNext">下一个</Button>
+			<Label Margin="10, 0, 0, 10" HorizontalAlignment="Left" VerticalAlignment="Bottom" Opacity="0.65">
+				<Run Foreground="Red" Name="_resultText">未查找到包含该内容的项。</Run>
+			</Label>
+			<Button Margin="0, 0, 10, 10" Width="110" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Name="_getNext" Click="_getNext_Click">下一个</Button>
 		</Grid>
 	</Grid>
 </Controls:MetroWindow>
