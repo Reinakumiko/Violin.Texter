@@ -151,7 +151,14 @@ namespace Violin.Texter
 
 				//重置编辑框
 				EditorReset();
+				
+				Title = _mainTitle;
+
+				if (editprogress == null)
+					Title += "(未打开进度)";
 			};
+			
+			EditProgress = null;
 		}
 
 		private void keyList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -269,7 +276,8 @@ namespace Violin.Texter
 			var contentIndex = ContentIndex.Instance;
 			contentIndex.Owner = this;
 			contentIndex.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-			contentIndex.Show(EditProgress);
+			contentIndex.EditProgress = EditProgress;
+			contentIndex.Show();
 		}
 	}
 }
