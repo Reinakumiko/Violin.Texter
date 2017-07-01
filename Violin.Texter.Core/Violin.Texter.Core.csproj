@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Checker\ArgumentCheck.cs" />
     <Compile Include="Checker\PathChecker.cs" />
+    <Compile Include="ContentIndex\IndexOptions.cs" />
     <Compile Include="Dialogs\BaseDialog.cs" />
     <Compile Include="Dialogs\DialogResult.cs" />
     <Compile Include="Dialogs\SaveDialog.cs" />
