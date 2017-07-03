@@ -24,12 +24,18 @@ namespace Violin.Texter
 	{
 		private async void ImportOrigin_Click(object sender, RoutedEventArgs e)
 		{
+			if (EditProgress == null)
+				CreateCurrentProgress();
+
 			await ImportPath(false);
 			UpdateEditList();
 		}
 
 		private async void ImportTranslate_Click(object sender, RoutedEventArgs e)
 		{
+			if (EditProgress == null)
+				CreateCurrentProgress();
+
 			await ImportPath(true);
 			UpdateEditList();
 		}

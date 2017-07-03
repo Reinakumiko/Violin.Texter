@@ -16,6 +16,7 @@ using Violin.Texter.Classes;
 using Violin.Texter.Core.Checker;
 using Violin.Texter.Core.Enumeration;
 using Violin.Texter.Core.Exceptions;
+using Violin.Texter.Core.Notify;
 using Violin.Texter.Core.Progresses;
 using Violin.Texter.Core.StreamWorker;
 using Violin.Texter.Core.Translations;
@@ -71,6 +72,17 @@ namespace Violin.Texter
 		{
 			_transOrigin.Clear();
 			_transTranslated.Clear();
+		}
+
+		private void CreateCurrentProgress()
+		{
+			EditProgress = new EditProgress()
+			{
+				State = EditProgressState.NotSave,
+				Translations = new NotifyList<Translation>()
+			};
+
+			SetListItems(EditProgress);
 		}
 
 		/// <summary>
