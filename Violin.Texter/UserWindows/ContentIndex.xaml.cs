@@ -189,9 +189,13 @@ namespace Violin.Texter.UserWindows
 			if (_enumeration == null || _enumeration.List != EditProgress.Translations || _enumeration.List.Count != EditProgress.Translations.Count)
 				_enumeration = new TranslationEnumeration<Translation>(EditProgress.Translations);
 			
+			//主窗体的列表控件
+			var keyList = (Owner as MainWindow).keyList;
+
 			if (LastSearchContent != SearchContent)
 			{
-				ResetIndex();
+				SetIndex((uint)keyList.SelectedIndex);
+
 				LastIndex = -1;
 				LastSearchContent = SearchContent;
 			}
@@ -215,7 +219,6 @@ namespace Violin.Texter.UserWindows
 			Owner.Invoke(() =>
 			{
 				LastIndex = nextIndex;
-				var keyList = (Owner as MainWindow).keyList;
 				keyList.SelectedIndex = LastIndex;
 
 				//将列表中的位置定位到已查找到项的位置
