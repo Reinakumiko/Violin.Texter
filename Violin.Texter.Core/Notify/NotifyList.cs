@@ -13,11 +13,10 @@ namespace Violin.Texter.Core.Notify
 	/// 表示一个可供元素修改通知的通知列表
 	/// </summary>
 	/// <typeparam name="T">表示一个包含属性通知的对象</typeparam>
-	public class NotifyList<T> : List<T>, INotifyCollectionChanged, INotifyPropertyChanged, IList<T>, IList, IEnumerable, IEnumerable<T>, ICollection, ICollection<T>, IReadOnlyList<T>, IReadOnlyCollection<T>
+	public class NotifyList<T> : List<T>, IList<T>, IReadOnlyList<T>, IReadOnlyCollection<T>, INotifyCollectionChanged
 		where T : INotifyPropertyChanged
 	{
 		public event NotifyCollectionChangedEventHandler CollectionChanged;
-		public event PropertyChangedEventHandler PropertyChanged;
 
 		public NotifyList() : base () { }
 		public NotifyList(int capacity) : base(capacity) { }
@@ -31,9 +30,6 @@ namespace Violin.Texter.Core.Notify
 			//添加进集合
 			base.Add(item);
 
-			//绑定事件
-			item.PropertyChanged += OnCollectionPropertyChange;
-
 			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
 		}
 
@@ -42,18 +38,10 @@ namespace Violin.Texter.Core.Notify
 			if (item == null)
 				return false;
 
-			//取消事件绑定
-			item.PropertyChanged -= OnCollectionPropertyChange;
-
 			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
 
 			//从集合中移除对象
 			return base.Remove(item);
-		}
-
-		private void OnCollectionPropertyChange(object sender, PropertyChangedEventArgs e)
-		{
-			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset, sender));
 		}
 	}
 }
