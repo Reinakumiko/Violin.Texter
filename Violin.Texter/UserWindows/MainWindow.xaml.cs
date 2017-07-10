@@ -56,7 +56,7 @@ namespace Violin.Texter
 		{
 			get
 			{
-				return EditProgress.Translations.Any(r => r.State == TranslationState.ChangedNotSave);
+				return EditProgress.State == EditProgressState.NotSave;
 			}
 			set
 			{
@@ -205,13 +205,7 @@ namespace Violin.Texter
 		private async void CreateProgress_Click(object sender, RoutedEventArgs e)
 		{
 			await CloseCurrentProgress();
-
-			EditProgress = new EditProgress()
-			{
-				Translations = new NotifyList<Translation>()
-			};
-
-			SetListItems(EditProgress);
+			CreateCurrentProgress();
 		}
 
 		/// <summary>
