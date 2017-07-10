@@ -27,7 +27,7 @@ namespace Violin.Texter
 			if (EditProgress == null)
 				CreateCurrentProgress();
 
-			await ImportPath(false);
+			await ImportPath(EditProgress, false);
 			UpdateEditList();
 		}
 
@@ -36,7 +36,7 @@ namespace Violin.Texter
 			if (EditProgress == null)
 				CreateCurrentProgress();
 
-			await ImportPath(true);
+			await ImportPath(EditProgress, true);
 			UpdateEditList();
 		}
 

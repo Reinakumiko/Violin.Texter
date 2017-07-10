@@ -254,7 +254,7 @@ namespace Violin.Texter
 		/// </summary>
 		/// <param name="file">要导入的文本内容</param>
 		/// <param name="isTranslate">是否是翻译过的文本</param>
-		private void ImportContent(string file, bool isTranslate)
+		private List<Translation> ImportContent(string file)
 		{
 			var fileInfo = new FileInfo(file);
 			using (var reader = fileInfo.OpenText())
@@ -282,48 +282,57 @@ namespace Violin.Texter
 					return translate;
 				}).ToList();
 
-				//查找已存在的相同key并且文本内容不同的段落
-				var updateResult = from import in matchedResult
-								   from progress in EditProgress.Translations
-								   where import.Key == progress.Key && (isTranslate ? (progress.Translated != import.Text) : (progress.Text != import.Text))
-								   select import;
-
-				//更新已存在的翻译段落(有更新的)
-				updateResult.ToList().ForEach(t =>
-				{
-					var updateKey = EditProgress.Translations.Where(k => k.Key == t.Key).FirstOrDefault();
-
-					if (isTranslate)
-						updateKey.Translated = t.Text;
-					else
-						updateKey.Text = t.Text;
-
-					updateKey.State = isTranslate ? TranslationState.TranslateUpdated : TranslationState.OriginUpdated;
-				});
-
-
-				//查询已存在与导入的key差异
-				var importKey = matchedResult.Select(t => t.Key).Distinct();
-				var progressKey = EditProgress.Translations.Select(t => t.Key).Distinct();
-
-				//添加新增的文本段落
-				importKey.Except(progressKey).ToList().ForEach((k) =>
-				{
-					var importTranslate = matchedResult.Where(t => t.Key == k).FirstOrDefault();
-
-					importTranslate.State = TranslationState.New;
-					EditProgress.Translations.Add(importTranslate);
-				});
-
-				if (isTranslate)
-					return;
-
-				EditProgress.OriginName = fileInfo.Name;
-				EditProgress.OriginContent = fileContent;
+				return matchedResult;
 			}
 		}
 
-		private async Task ImportPath(bool isTranslate)
+		/// <summary>
+		/// 导入译文到现有列表中
+		/// </summary>
+		private void ImportTranslation(IList<Translation> originText, List<Translation> translatedText)
+		{
+			translatedText.ForEach(t =>
+			{
+				var origin = originText.Where(o => o.Key == t.Key).FirstOrDefault();
+
+				if (origin == null || origin.Translated == t.Text)
+					return;
+
+				//更新字段的译文
+				origin.Translated = t.Text;
+
+				//该字段是被更新译文的
+				origin.State = TranslationState.TranslateUpdated;
+			});
+		}
+
+		/// <summary>
+		/// 更新原文文本到现有列表中
+		/// </summary>
+		private void UpdateTranslation(IList<Translation> originText, List<Translation> newText)
+		{
+			newText.ForEach(t =>
+			{
+				var origin = originText.Where(o => o.Key == t.Key).FirstOrDefault();
+
+				if (origin == null)
+				{
+					//该字段是被新加入的
+					t.State = TranslationState.New;
+					originText.Add(t);
+				}
+				else if (origin.Text != t.Text)
+				{
+					//更新原文文本
+					origin.Text = t.Text;
+
+					//该字段是被更新原文的
+					origin.State = TranslationState.OriginUpdated;
+				}
+			});
+		}
+
+		private async Task ImportPath(EditProgress editprogress, bool isTranslate)
 		{
 			var dialogController = await this.ShowProgressAsync("正在导入", "正在将文本导入到当前进度中...");
 			dialogController.SetIndeterminate();
@@ -336,7 +345,16 @@ namespace Violin.Texter
 
 				if (_fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
 				{
-					ImportContent(_fileDialog.FileName, isTranslate);
+					//获取导入的文本中有哪些段落
+					var importContents = ImportContent(_fileDialog.FileName);
+
+					if (isTranslate)
+						ImportTranslation(editprogress.Translations, importContents); //检查导入译文的更新
+					else //如果是译文则不检查原文的更新
+					{
+						//检查导入文本的更新
+						UpdateTranslation(editprogress.Translations, importContents);
+					}
 				}
 			}
 
