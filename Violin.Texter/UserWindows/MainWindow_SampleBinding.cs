@@ -210,7 +210,7 @@ namespace Violin.Texter
 		{
 			var translateContent = $"{CurrentItem.Key}:{CurrentItem.Level} \r\n\tOrigin: {CurrentItem.Text} \r\n\tTranslated: {CurrentItem.Translated}";
 
-			Clipboard.SetText(translateContent);
+			Clipboard.SetDataObject(translateContent);
 		}
 
 		/// <summary>
