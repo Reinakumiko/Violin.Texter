@@ -357,6 +357,12 @@ namespace Violin.Texter
 							UpdateTranslation(progress.Translations, importContents);
 						}
 
+							//设置进度内导入的文件名
+							progress.OriginName = fileInfo.Name;
+
+							//设置进度内导入的文件内容
+							progress.OriginContent = fileContent;
+						}
 					}
 				}
 
