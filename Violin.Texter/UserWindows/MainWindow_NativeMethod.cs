@@ -254,14 +254,8 @@ namespace Violin.Texter
 		/// </summary>
 		/// <param name="file">要导入的文本内容</param>
 		/// <param name="isTranslate">是否是翻译过的文本</param>
-		private List<Translation> ImportContent(string file)
+		private List<Translation> ImportContent(string fileContent)
 		{
-			var fileInfo = new FileInfo(file);
-			using (var reader = fileInfo.OpenText())
-			{
-				//获取文本内容
-				var fileContent = reader.ReadToEnd();
-
 				//匹配规则
 				var regMatchKey = new Regex(@"[\d\w\._]+", RegexOptions.Compiled);
 				var regMatchValue = new Regex("\".*\"", RegexOptions.Compiled);
@@ -283,7 +277,6 @@ namespace Violin.Texter
 				}).ToList();
 
 				return matchedResult;
-			}
 		}
 
 		/// <summary>
@@ -332,7 +325,7 @@ namespace Violin.Texter
 			});
 		}
 
-		private async Task ImportPath(EditProgress editprogress, bool isTranslate)
+		private async Task ImportPath(EditProgress progress, bool isTranslate)
 		{
 			var dialogController = await this.ShowProgressAsync("正在导入", "正在将文本导入到当前进度中...");
 			dialogController.SetIndeterminate();
@@ -345,17 +338,28 @@ namespace Violin.Texter
 
 				if (_fileDialog.ShowDialog() == CommonFileDialogResult.Ok)
 				{
-					//获取导入的文本中有哪些段落
-					var importContents = ImportContent(_fileDialog.FileName);
+					var fileInfo = new FileInfo(_fileDialog.FileName);
 
-					if (isTranslate)
-						ImportTranslation(editprogress.Translations, importContents); //检查导入译文的更新
-					else //如果是译文则不检查原文的更新
+					//打开文件流
+					using (var reader = fileInfo.OpenText())
 					{
-						//检查导入文本的更新
-						UpdateTranslation(editprogress.Translations, importContents);
+						//获取文本内容
+						var fileContent = reader.ReadToEnd();
+
+						//获取导入的文本中有哪些段落
+						var importContents = ImportContent(fileContent);
+
+						if (isTranslate)
+							ImportTranslation(progress.Translations, importContents); //检查导入译文的更新
+						else //如果是译文则不检查原文的更新
+						{
+							//检查导入文本的更新
+							UpdateTranslation(progress.Translations, importContents);
+						}
+
 					}
 				}
+
 			}
 
 			await dialogController.CloseAsync();
