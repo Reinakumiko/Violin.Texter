@@ -263,9 +263,9 @@ namespace Violin.Texter
 				var fileContent = reader.ReadToEnd();
 
 				//匹配规则
-				var regMatchKey = new Regex(@"[\d\w\._]+");
-				var regMatchValue = new Regex("\".*\"");
-				var regMatchLevel = new Regex(@"(?<=:)\d");
+				var regMatchKey = new Regex(@"[\d\w\._]+", RegexOptions.Compiled);
+				var regMatchValue = new Regex("\".*\"", RegexOptions.Compiled);
+				var regMatchLevel = new Regex(@"(?<=:)\d", RegexOptions.Compiled);
 
 				//匹配符合规则的文本段落
 				var matchedResult = Regex.Matches(fileContent, @"[\d\w\._]+?\:\t?\d\s?" + "\".*\"").Cast<Match>().Select(m =>
