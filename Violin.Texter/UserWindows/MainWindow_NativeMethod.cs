@@ -355,7 +355,6 @@ namespace Violin.Texter
 						{
 							//检查导入文本的更新
 							UpdateTranslation(progress.Translations, importContents);
-						}
 
 							//设置进度内导入的文件名
 							progress.OriginName = fileInfo.Name;
