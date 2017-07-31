@@ -194,9 +194,9 @@ namespace Violin.Texter
 
 				changedList.ForEach(t =>
 				{
-					var regMatch = $@"(?<={t.Key}\:\t?\d\s?)" + "\".*\"";
+					var regMatch = $@"(?<=(^\s*?{t.Key})\:\t?\d\s?)" + "\".*\"";
 
-					originContent = Regex.Replace(originContent, regMatch, t.RenderTranslateText(true));
+					originContent = Regex.Replace(originContent, regMatch, t.RenderTranslateText(true), RegexOptions.Multiline);
 				});
 
 				return originContent;
