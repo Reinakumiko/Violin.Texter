@@ -49,9 +49,21 @@
 				<MenuItem Header="查找内容" Name="ContextIndex" Click="ContextIndex_Click"></MenuItem>
 			</MenuItem>
 			<MenuItem Header="生成">
-				<MenuItem Header="导出文本">
+				<MenuItem Header="导出全文">
 					<MenuItem Header="原文文本" Name="ExportOrigin" Click="ExportOrigin_Click"></MenuItem>
 					<MenuItem Header="译文文本" Name="ExportTranslated" Click="ExportTranslated_Click"></MenuItem>
+				</MenuItem>
+				<MenuItem Header="导出段落">
+					<MenuItem Name="ExportOriginOnly" Click="ExportOriginOnly_Click">
+						<MenuItem.Header>
+							<TextBlock><Run Foreground="#FFF0A30A">未翻译</Run>文本</TextBlock>
+						</MenuItem.Header>
+					</MenuItem>
+					<MenuItem Name="ExportTranslatedOnly" Click="ExportTranslatedOnly_Click">
+						<MenuItem.Header>
+							<TextBlock><Run Foreground="#FF60A917">已翻译</Run>文本</TextBlock>
+						</MenuItem.Header>
+					</MenuItem>
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="工具">

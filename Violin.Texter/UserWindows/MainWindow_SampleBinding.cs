@@ -14,6 +14,7 @@ using Violin.Texter.UserWindows;
 using Violin.Texter.Core.Translations;
 using Violin.Texter.Core.Exceptions;
 using System.ComponentModel;
+using Violin.Texter.Core.Enumeration;
 
 namespace Violin.Texter
 {
@@ -190,7 +191,7 @@ namespace Violin.Texter
 			SaveContent(() =>
 			{
 				var originContent = EditProgress.OriginContent;
-				var changedList = EditProgress.Translations.Where(t => t.IsTranslated).ToList();
+				var changedList = EditProgress.Translations.Where(t => t.IsTranslated);
 
 				changedList.ForEach(t =>
 				{
@@ -231,6 +232,22 @@ namespace Violin.Texter
 			await CloseCurrentProgress();
 
 			Application.Current.Shutdown();
+		}
+
+		/// <summary>
+		/// 只导出未翻译文本
+		/// </summary>
+		private void ExportOriginOnly_Click(object sender, RoutedEventArgs e)
+		{
+			ExportContent(false);
+		}
+
+		/// <summary>
+		/// 只导出已翻译文本
+		/// </summary>
+		private void ExportTranslatedOnly_Click(object sender, RoutedEventArgs e)
+		{
+			ExportContent(true);
 		}
 	}
 }

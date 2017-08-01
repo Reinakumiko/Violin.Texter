@@ -300,6 +300,31 @@ namespace Violin.Texter
 		}
 
 		/// <summary>
+		/// 导出文本内容
+		/// </summary>
+		/// <param name="translated">导出的内容是否为译文文本</param>
+		private void ExportContent(bool translated)
+		{
+			CheckValidProgress(EditProgress, "无效的操作", "当前未打开任何进度，无法导出文本。");
+
+			SaveContent(() =>
+			{
+				var exportContent = new StringBuilder();
+				exportContent.AppendLine("l_english:");
+
+
+				var translates = EditProgress.Translations.Where(t => t.IsTranslated == translated).OrderBy(t => t.Key);
+
+				translates.ForEach(i => {
+					exportContent.Append("\t");
+					exportContent.AppendLine(i.ToString(translated));
+				});
+
+				return exportContent.ToString();
+			});
+		}
+
+		/// <summary>
 		/// 更新原文文本到现有列表中
 		/// </summary>
 		private void UpdateTranslation(IList<Translation> originText, List<Translation> newText)

@@ -130,10 +130,11 @@ namespace Violin.Texter.Core.Translations
 		{
 			get { return !string.IsNullOrWhiteSpace(Translated); }
 		}
-
+		
 		/// <summary>
 		/// 获取翻译的渲染文本
 		/// </summary>
+		/// <param name="translated">是否以翻译文本的内容渲染</param>
 		/// <returns>翻译文本的字符串结果</returns>
 		public string RenderTranslateText(bool translated)
 		{
